@@ -1,0 +1,78 @@
+CREATE TABLE `b1`.`regressionruninfo` (
+  `RegressionRunID` INT NOT NULL,
+  `branch` VARCHAR(45) NULL,
+  `version` VARCHAR(45) NULL,
+  `model` VARCHAR(45) NULL,
+  `rundate` VARCHAR(45) NULL,
+  `starttime` VARCHAR(45) NULL,
+  `endtime` VARCHAR(45) NULL,
+  `logpath` VARCHAR(45) NULL,
+  `datapath` VARCHAR(45) NULL,
+  `runNumber` INT NULL,
+  `rack` VARCHAR(45) NULL,
+  `root` VARCHAR(45) NULL,
+  `app` VARCHAR(45) NULL,
+  `subrun` VARCHAR(45) NULL,
+  `secondaryVersion` VARCHAR(45) NULL,
+  PRIMARY KEY (`RegressionRunID`));
+
+
+
+CREATE TABLE `b1`.`testcaseinfo` (
+  `TestName` VARCHAR(45) NOT NULL,
+  `TestOwner` VARCHAR(45) NULL,
+  `TestLogName` VARCHAR(45) NULL,
+  `Testtype` VARCHAR(45) NULL,
+  `PortfolioName` VARCHAR(45) NULL,
+  `AnalysisDate` VARCHAR(45) NULL,
+  `NewTestName` VARCHAR(45) NULL,
+  `SubType` VARCHAR(45) NULL,
+  `TestGroup` VARCHAR(45) NOT NULL,
+  `app` VARCHAR(45) NULL,
+  `testpath` VARCHAR(45) NULL,
+  `Model` VARCHAR(45) NULL,
+  `Issues` VARCHAR(45) NULL,
+  PRIMARY KEY (`TestName`, `TestGroup`));
+
+ALTER TABLE `b1`.`testcaseinfo` 
+CHANGE COLUMN `TestOwner` `TestOwner` VARCHAR(45) NULL DEFAULT 'B1AQA' ,
+CHANGE COLUMN `TestGroup` `TestGroup` VARCHAR(45) NULL DEFAULT NULL ,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`TestName`);
+;
+
+
+CREATE TABLE `b1`.`testcaseinfocal` (
+  `TestName` VARCHAR(45) NOT NULL,
+  `TestOwner` VARCHAR(45) NULL,
+  `TestType` VARCHAR(45) NULL,
+  PRIMARY KEY (`TestName`));
+
+
+
+CREATE TABLE `b1`.`testresults` (
+  `RegressionRunID` INT NULL,
+  `prim_key` INT NOT NULL,
+  `TestName` VARCHAR(45) NULL,
+  `Comment` VARCHAR(45) NULL,
+  `MatchesPreviousrun` INT NULL,
+  `Description` VARCHAR(45) NULL,
+  `T2` VARCHAR(45) NULL,
+  `baseversion` VARCHAR(45) NULL,
+  `T3` VARCHAR(45) NULL,
+  `ID` INT NULL,
+  `T1` VARCHAR(45) NULL,
+  `MaxDiff` DOUBLE NULL,
+  `MatchsBaseline` INT NULL,
+  `NumberOfDiffs` INT NULL,
+  `NumberofDiffsFromPrevious` INT NULL,
+  `Category` VARCHAR(45) NULL,
+  `Rebaselined` TINYINT NULL,
+  `Tester` VARCHAR(45) NULL,
+  PRIMARY KEY (`prim_key`));
+
+
+INSERT INTO `b1`.`testresults` (`RegressionRunID`, `prim_key`, `TestName`, `Comment`, `MatchesPreviousrun`, `Description`, `T2`, `ID`, `T1`, `MaxDiff`, `MatchsBaseline`, `NumberOfDiffs`, `NumberofDiffsFromPrevious`, `Category`, `Rebaselined`) VALUES ('10120', '4077224', 'ST_RISK_IIL', '[HE] CP-12345', '1', 'Missing', '2020-06-01 14:26:30', '5002492', '35.2', '5.2', '0', '1', '0', 'error', 'f');
+INSERT INTO `b1`.`testresults` (`RegressionRunID`, `prim_key`, `TestName`, `Comment`, `MatchesPreviousrun`, `Description`, `T2`, `ID`, `T1`, `MaxDiff`, `MatchsBaseline`, `NumberOfDiffs`, `NumberofDiffsFromPrevious`, `Category`, `Rebaselined`) VALUES ('10120', '4077225', 'HV_IIL', '[HE] update', '1', 'Mismatch Idenfied', '2020-06-01 14:26:30', '5002443', '154.1', '165', '0', '2', '6', 'error', 't');
+UPDATE `b1`.`testresults` SET `TestName` = 'BIM107', `T1` = '125' WHERE (`prim_key` = '4975444');
+UPDATE `b1`.`testresults` SET `T1` = '254.2' WHERE (`prim_key` = '4975443');
